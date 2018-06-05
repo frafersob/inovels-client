@@ -1,22 +1,27 @@
-<ul>
-	<li class = "card" *ngFor="let novel of novels">
-		<div class = "panel-body">
-			<div class = "novel-image">
-				<img [src]="novel.image" [title]="novel.name" [alt]="novel.name">
-			</div>
-			<div class = "novel-info">
-			<h2><span class="novelName">{{novel.name}}</span> by
-			<span class="novelAuthor">root</span>
+<ul class = "novelList">
+	<li class = "novel" *ngFor="let novel of novels">
+		<mat-card class="novelCard">
+			<mat-card-header>
+			<div mat-card-avatar 
+			[style.background]="'url(' + './assets/user.jpg' + ')'"
+    		[style.background-size]="'cover'"></div>
+			<mat-card-title>{{novel.name}}</mat-card-title>
+			<mat-card-subtitle>{{novel.updateDateTime | timeAgo}}, 
 			<span class = "novelPages" *ngIf="novel.scenes.length == 1">
-				({{novel.scenes.length}} page)
+				{{novel.scenes.length}} page
 			</span>
 			<span class = "novelPages" *ngIf="novel.scenes.length != 1">
-				({{novel.scenes.length}} pages)
-			</span>
-			</h2>
-			<p class = "novelDates">created on {{novel.createDateTime | date}}, last updated on {{novel.updateDateTime | date}}</p>
+				{{novel.scenes.length}} pages
+			</span></mat-card-subtitle>
+			</mat-card-header>
+			  <img mat-card-image [src]="novel.image" [alt]="novel.name">
+			<mat-card-content>
 			<p class = "novelDescription">{{novel.description}}</p>
-			</div>
-		</div>
+			</mat-card-content>
+			<mat-card-actions>
+	    		<button mat-button>READ</button>
+	    		<button mat-button>SHARE</button>
+  			</mat-card-actions>
+		</mat-card>
 	</li>
 </ul>

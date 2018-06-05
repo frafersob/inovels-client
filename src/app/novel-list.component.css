@@ -4,7 +4,13 @@
 	
 }
 
+.novelCard{
+	max-width: 400px;
+}
 
+.novel{
+	margin-bottom: 10px;
+}
 
 li {
     list-style:none;
