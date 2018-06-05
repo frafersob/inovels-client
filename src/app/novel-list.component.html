@@ -1,0 +1,22 @@
+<ul>
+	<li class = "card" *ngFor="let novel of novels">
+		<div class = "panel-body">
+			<div class = "novel-image">
+				<img [src]="novel.image" [title]="novel.name" [alt]="novel.name">
+			</div>
+			<div class = "novel-info">
+			<h2><span class="novelName">{{novel.name}}</span> by
+			<span class="novelAuthor">root</span>
+			<span class = "novelPages" *ngIf="novel.scenes.length == 1">
+				({{novel.scenes.length}} page)
+			</span>
+			<span class = "novelPages" *ngIf="novel.scenes.length != 1">
+				({{novel.scenes.length}} pages)
+			</span>
+			</h2>
+			<p class = "novelDates">created on {{novel.createDateTime | date}}, last updated on {{novel.updateDateTime | date}}</p>
+			<p class = "novelDescription">{{novel.description}}</p>
+			</div>
+		</div>
+	</li>
+</ul>
