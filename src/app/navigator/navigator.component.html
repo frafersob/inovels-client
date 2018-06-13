@@ -1,0 +1,34 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport="true"
+    [attr.role]="(isHandset | async)? 'dialog' : 'navigation'"
+    [mode]="(isHandset | async)!.matches ? 'over' : 'side'"
+    [opened]="!(isHandset | async)!.matches">
+    <mat-toolbar color="primary">Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item *ngIf="this.token.getToken()" routerLink="/user"><span mat-card-avatar 
+			[style.background]="'url(' + './assets/user.jpg' + ')'"
+    		[style.background-size]="'cover'"></span> 
+    		<span class="navUser" *ngIf="this.navUser">{{this.navUser.username}}</span></a>
+      <a mat-list-item routerLinkActive="active" routerLink="/novels">Home</a>
+      <a mat-list-item *ngIf="!this.token.getToken()" routerLink="/">Login</a>
+      <a mat-list-item *ngIf="!this.token.getToken()" routerLink="/signup">Sign Up</a>
+      <a mat-list-item *ngIf="this.token.getToken()" (click)="this.token.signOut()" routerLink="/">Logout</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="(isHandset | async)!.matches">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>Interactive Novels</span>
+    </mat-toolbar>
+  </mat-sidenav-content>
+</mat-sidenav-container>
