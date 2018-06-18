@@ -26,9 +26,11 @@ import { SceneComponent } from './scene/scene.component';
 import { SceneService } from './scene/scene.service';
 import { CreatenovelComponent } from './novel/createnovel/createnovel.component';
 import { EditnovelComponent } from './novel/editnovel/editnovel.component';
-import { SignupComponent } from './signup/signup.component';
+import { SignupComponent } from './user/signup/signup.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './core/app.routing.module';
+import { FileInputAccessorModule } from 'file-input-accessor';
+import { EdituserComponent } from './user/edituser/edituser.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { AppRoutingModule } from './core/app.routing.module';
     CreatenovelComponent,
     EditnovelComponent,
     SignupComponent,
-    ErrorDialogComponent
+    ErrorDialogComponent,
+    EdituserComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,7 +56,8 @@ import { AppRoutingModule } from './core/app.routing.module';
     FlexLayoutModule,
     ReactiveFormsModule,
     MaterialModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FileInputAccessorModule
   ],
   entryComponents: [ErrorDialogComponent],
   providers: [ErrorDialogComponent, NovelService, UserService, SceneService, AuthService, TokenStorage,

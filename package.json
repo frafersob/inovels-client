@@ -26,6 +26,7 @@
     "@angular/platform-server": "^6.0.0",
     "@angular/router": "^6.0.0",
     "core-js": "^2.5.7",
+    "file-input-accessor": "^2.0.0",
     "jwt-decode": "^2.2.0",
     "moment": "^2.22.2",
     "rxjs": "^6.2.1",

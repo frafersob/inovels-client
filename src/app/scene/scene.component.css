@@ -34,3 +34,9 @@ mat-grid-tile {
 .sceneName{
 	font-size: 2em;
 }
+
+.editButtons button{
+	float: right;
+	min-width: 50px;
+	padding: 0;
+}

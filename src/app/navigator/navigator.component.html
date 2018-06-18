@@ -8,14 +8,16 @@
     [opened]="!(isHandset | async)!.matches">
     <mat-toolbar color="primary">Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item *ngIf="this.token.getToken()" routerLink="/user"><span mat-card-avatar 
-			[style.background]="'url(' + './assets/user.jpg' + ')'"
+      <a mat-list-item *ngIf="this.token.getToken() && !this.token.getTokenExpired() && this.currentUser" routerLink="/edituser"><span mat-card-avatar 
+			[style.background]="'url(data:' + this.currentUser.avatar.extension + ';base64,' +  
+			this.currentUser.avatar.src + ')'"
     		[style.background-size]="'cover'"></span> 
-    		<span class="navUser" *ngIf="this.navUser">{{this.navUser.username}}</span></a>
+    		<span class="navUser" *ngIf="this.currentUser">{{this.currentUser.username}}</span></a>
       <a mat-list-item routerLinkActive="active" routerLink="/novels">Home</a>
+      <a mat-list-item *ngIf="this.token.getToken() && !this.token.getTokenExpired()" routerLink="/newnovel">New Novel</a>
       <a mat-list-item *ngIf="!this.token.getToken()" routerLink="/">Login</a>
       <a mat-list-item *ngIf="!this.token.getToken()" routerLink="/signup">Sign Up</a>
-      <a mat-list-item *ngIf="this.token.getToken()" (click)="this.token.signOut()" routerLink="/">Logout</a>
+      <a mat-list-item *ngIf="this.token.getToken() &&!this.token.getTokenExpired()" (click)="this.token.signOut()" routerLink="/">Logout</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

@@ -1,7 +1,10 @@
+import { TokenStorage } from '../core/token.storage';
 import { Novel } from '../novel/novel';
 import { Scene } from './scene';
 import { SceneService } from './scene.service';
 import { NovelService } from '../novel/novel.service';
+import { User } from '../user/user';
+import { UserService } from '../user/user.service';
 import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 
@@ -13,22 +16,33 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 export class SceneComponent implements OnInit {
   scene: Scene;
   page: number;
-  novel: number;
+  novelid: number;
   pages: number;
-  constructor(private route: ActivatedRoute, private router: Router,
-    private sceneService: SceneService, private novelService: NovelService) { }
+  novel: Novel;
+  user: User;
+  currentUser: User;
+
+  constructor(private route: ActivatedRoute, private router: Router, private userService: UserService,
+    private token: TokenStorage, private sceneService: SceneService, private novelService: NovelService) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      this.novel = Number(params['id']);
+      if (!this.token.getTokenExpired()) {
+        this.userService.getUserByName(this.token.getDecodedToken().sub)
+          .subscribe((user: User) => {
+            this.currentUser = user;
+            console.log(user);
+        });
+      }
+      this.novelid = Number(params['id']);
       this.page = Number(params['p']);
-      console.log('novel = ' + this.novel + ' page = ' + this.page);
-      if (this.novel != null && this.page != null && this.novel > 0 && this.page > 0) {
-        this.sceneService.getScenes(this.novel)
-          .subscribe(scenes => this.scene = scenes[this.page - 1]);
+      console.log('novel = ' + this.novelid + ' page = ' + this.page);
+      if (this.novelid != null && this.page != null && this.novelid > 0 && this.page > 0) {
+        this.novelService.getNovel(this.novelid)
+          .subscribe(novel => {this.novel = novel; this.user = novel.user});
+        this.sceneService.getScenes(this.novelid)
+          .subscribe(scenes => {this.scene = scenes[this.page - 1]; this.pages = scenes.length});
         console.log(this.scene);
-        this.sceneService.getScenes(this.novel)
-          .subscribe(scenes => this.pages = scenes.length);
       } else {
         this.router.navigate(['']);
       }
@@ -38,14 +52,14 @@ export class SceneComponent implements OnInit {
   nextPage() {
     console.log('next page ' + (this.page + 1)  + ' of ' + this.pages);
     if (this.page < this.pages) {
-      this.router.navigate(['novel'], { queryParams: { id: this.novel, p: (this.page + 1) } });
+      this.router.navigate(['novel'], { queryParams: { id: this.novelid, p: (this.page + 1) } });
     }
   }
 
   previousPage() {
     console.log('prev page');
     if (this.page > 1) {
-      this.router.navigate(['novel'], { queryParams: { id: this.novel, p: (this.page - 1) } });
+      this.router.navigate(['novel'], { queryParams: { id: this.novelid, p: (this.page - 1) } });
     }
   }
 }

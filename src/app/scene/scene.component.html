@@ -1,15 +1,20 @@
 <mat-grid-tile *ngIf="scene">
 	<mat-card class="sceneCard">
 		<mat-card-header>
-		<mat-card-title><span class="sceneName">Novel {{novel}}</span></mat-card-title>
+		<mat-card-title><span *ngIf="novel" class="sceneName">{{novel.name}}</span></mat-card-title>
 		</mat-card-header>
-		  <img mat-card-image [src]="scene.images[0].src">
+		  <img mat-card-image [src]="'data:' + scene.images[0].extension + ';base64,' +  
+			scene.images[0].src">
 		<mat-card-content>
 		<p class = "sceneText">{{scene.text}}</p>
 		</mat-card-content>
 		<mat-card-actions>
     		<button mat-button (click)="previousPage()">PREVIOUS PAGE</button>
     		<button mat-button (click)="nextPage()">NEXT PAGE</button>
+    		<span class="editButtons" *ngIf="currentUser && user">
+    		<button mat-button *ngIf="user.id === currentUser.id" (click)="newPage()"><mat-icon>add</mat-icon></button>
+    		<button mat-button *ngIf="user.id === currentUser.id" (click)="editPage()"><mat-icon>edit</mat-icon></button>
+    		</span>
  		</mat-card-actions>
 	</mat-card>
 </mat-grid-tile>

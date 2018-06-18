@@ -8,7 +8,6 @@ const TOKEN_KEY = 'AuthToken';
 
 @Injectable()
 export class TokenStorage {
-  user: User;
 
   constructor(private http: HttpClient, private userService: UserService) { }
 
@@ -26,17 +25,20 @@ export class TokenStorage {
     return localStorage.getItem(TOKEN_KEY);
   }
 
+  public getTokenExpired(): boolean {
+    if (this.getDecodedToken()) {
+      return ( this.getDecodedToken().exp * 1000 ) <= Date.now();
+    } else {
+      return false;
+    }
+  }
+
   public getDecodedToken(): any {
     try {
         return jwtDecode(localStorage.getItem(TOKEN_KEY));
     } catch (Error) {
         return null;
     }
-  }
-
-  public getUser() {
-    return this.http.get('http://localhost:8080/api/userByName/' + this.getDecodedToken().sub)
-      .map(response => <User>response);
   }
 
 }

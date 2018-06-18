@@ -3,8 +3,9 @@
 	<mat-grid-tile *ngFor="let novel of novels">
 		<mat-card class="novelCard">
 			<mat-card-header>
-			<div mat-card-avatar 
-			[style.background]="'url(' + './assets/user.jpg' + ')'"
+			<div class="novelAvatar" (click)="viewUser(novel.user.id)" mat-card-avatar 
+			[style.background]="'url(data:' + novel.user.avatar.extension + ';base64,' +  
+			novel.user.avatar.src + ')'"
     		[style.background-size]="'cover'"></div>
 			<mat-card-title>{{novel.name}}</mat-card-title>
 			<mat-card-subtitle>{{novel.updateDateTime | timeAgo}}, 
@@ -15,13 +16,16 @@
 				{{novel.scenes.length}} pages
 			</span></mat-card-subtitle>
 			</mat-card-header>
-			  <img mat-card-image [src]="novel.image" [alt]="novel.name">
+			  <img class = "novelImage" mat-card-image [src]="'data:' + novel.image.extension + ';base64,' +  
+			novel.image.src" [alt]="novel.name">
 			<mat-card-content>
 			<p class = "novelDescription">{{novel.description}}</p>
 			</mat-card-content>
 			<mat-card-actions>
-	    		<button mat-button (click)="readNovel(novel.id)">READ</button>
-	    		<button mat-button>EDIT</button>
+	    		<button *ngIf="novel.scenes.length > 0" mat-button (click)="readNovel(novel.id)">READ</button>
+	    		<span class = "novelButtons" *ngIf="currentUser && (novel.user.id === currentUser.id)">
+	    		<button mat-button (click)="editNovel(novel.id)"><mat-icon>edit</mat-icon></button>
+	    		</span>
   			</mat-card-actions>
 		</mat-card>
 	</mat-grid-tile>

@@ -1,0 +1,10 @@
+.editNovelCard{
+	max-width: 420px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.novelImage{
+	max-width: 50%;
+	max-height: 50%;
+}

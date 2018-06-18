@@ -21,3 +21,18 @@ ul
     padding:0px;
     margin:0px;
 }
+
+.novelImage {
+	max-width: 400px;
+	max-height: 225px;
+}
+
+.novelButtons button{
+	float: right;
+	min-width: 50px;
+	padding: 0;
+}
+
+.novelAvatar:hover {
+	cursor:pointer;
+}

@@ -1,0 +1,13 @@
+.signupCard{
+	max-width: 420px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.userAvatar{
+	max-width: 200px;
+	max-height: 200px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 0 !important;
+}

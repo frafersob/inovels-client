@@ -10,6 +10,8 @@ const httpOptions = {
 
 @Injectable()
 export class UserService {
+  public currentUser: any;
+
   private userUrl = 'http://localhost:8080/api';
 
   constructor(private http: HttpClient) {}

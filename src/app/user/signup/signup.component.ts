@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {UserService} from '../user/user.service';
+import {UserService} from '../user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormControl, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
@@ -59,9 +59,9 @@ export class SignupComponent implements OnInit {
         password: this.signupForm.controls['password'].value};
       this.userService.createUser(user).subscribe(
         data => {
+          this.router.navigate(['login']);
           let snackBarRef = this.snackBar.open('User created', 'Dismiss', {
             duration: 500});
-          this.router.navigate(['login']);
         },
         (err: HttpErrorResponse) => {
           if (err.error instanceof Error) {
