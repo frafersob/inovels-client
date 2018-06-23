@@ -39,6 +39,18 @@ export class UserService {
         return this.http.put(this.userUrl + '/users/' + user.id, user);
   }
 
+  public getProgresses(userId: number): Observable<any> {
+        return this.http.get(this.userUrl + '/progress/' + userId);
+  }
+
+  public getProgress(userId: number, novelId: number): Observable<any> {
+        return this.http.get(this.userUrl + '/progress/' + userId + '/' + novelId);
+  }
+
+  public updateProgress(userId: number, novelId: number) {
+        return this.http.post(this.userUrl + '/progress/' + userId + '/' + novelId, null);
+  }
+
   public deleteUser(id: number): Observable<any> {
     return this.http.delete(this.userUrl + '/users/' + id);
   }

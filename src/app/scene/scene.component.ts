@@ -5,7 +5,8 @@ import { SceneService } from './scene.service';
 import { NovelService } from '../novel/novel.service';
 import { User } from '../user/user';
 import { UserService } from '../user/user.service';
-import { Component, OnInit} from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 
 @Component({
@@ -21,6 +22,8 @@ export class SceneComponent implements OnInit {
   novel: Novel;
   user: User;
   currentUser: User;
+  currentProgress: Map<number, number>;
+  @ViewChild('answerBox') answerBox: ElementRef;
 
   constructor(private route: ActivatedRoute, private router: Router, private userService: UserService,
     private token: TokenStorage, private sceneService: SceneService, private novelService: NovelService) { }
@@ -31,36 +34,81 @@ export class SceneComponent implements OnInit {
         this.userService.getUserByName(this.token.getDecodedToken().sub)
           .subscribe((user: User) => {
             this.currentUser = user;
-            console.log(user);
+            this.userService.getProgresses(this.currentUser.id)
+              .subscribe((progress: any) => {
+                this.currentProgress = progress;
+            });
+            this.novelid = Number(params['id']);
+            this.page = Number(params['p']);
+            if (this.novelid != null && this.page != null
+              && this.novelid > 0 && this.page > 0
+              && this.currentUser) {
+              this.novelService.getNovel(this.novelid)
+                .subscribe(novel => {this.novel = novel; this.user = novel.user});
+              this.sceneService.getScenes(this.novelid)
+                .subscribe(scenes => {this.scene = scenes[this.page - 1]; this.pages = scenes.length});
+              if (!this.currentProgress || !this.currentProgress[this.novelid]) {
+                this.userService.updateProgress(this.currentUser.id, this.novelid).subscribe(
+                  data => {},
+                  (err: HttpErrorResponse) => {
+                    if (err.error instanceof Error) {
+                      console.log(err.error);
+                    } else {
+                      console.log(err.error);
+                    }
+                  }
+                );
+              }
+            } else {
+              this.router.navigate(['']);
+            }
         });
-      }
-      this.novelid = Number(params['id']);
-      this.page = Number(params['p']);
-      console.log('novel = ' + this.novelid + ' page = ' + this.page);
-      if (this.novelid != null && this.page != null && this.novelid > 0 && this.page > 0) {
-        this.novelService.getNovel(this.novelid)
-          .subscribe(novel => {this.novel = novel; this.user = novel.user});
-        this.sceneService.getScenes(this.novelid)
-          .subscribe(scenes => {this.scene = scenes[this.page - 1]; this.pages = scenes.length});
-        console.log(this.scene);
       } else {
-        this.router.navigate(['']);
+        console.log('token expired');
       }
     });
   }
 
   nextPage() {
-    console.log('next page ' + (this.page + 1)  + ' of ' + this.pages);
-    if (this.page < this.pages) {
-      this.router.navigate(['novel'], { queryParams: { id: this.novelid, p: (this.page + 1) } });
+    if (this.page < this.pages && this.currentProgress[this.novelid]) {
+      if (this.currentProgress[this.novelid] >= (this.page + 1)) {
+        this.router.navigate(['novel'], { queryParams: { id: this.novelid, p: (this.page + 1) } });
+      } else {
+        if (this.answerBox.nativeElement.value === this.scene.answer) {
+          this.currentProgress[this.novelid]++;
+          this.userService.updateProgress(this.currentUser.id, this.novelid).subscribe(
+            data => {
+               this.router.navigate(['novel'], { queryParams: { id: this.novelid, p: (this.page + 1) } });
+            },
+            (err: HttpErrorResponse) => {
+              if (err.error instanceof Error) {
+                console.log(err.error);
+              } else {
+                console.log(err.error);
+              }
+            }
+          );
+        }
+      }
     }
   }
 
   previousPage() {
-    console.log('prev page');
     if (this.page > 1) {
       this.router.navigate(['novel'], { queryParams: { id: this.novelid, p: (this.page - 1) } });
     }
+  }
+
+  notFirstPage() {
+    return this.page > 1;
+  }
+
+  notLastPage() {
+    return this.page < this.pages;
+  }
+
+  editPage() {
+    this.router.navigate(['editscene'], { queryParams: { id: this.novelid, p: this.page } });
   }
 }
 

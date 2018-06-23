@@ -8,6 +8,10 @@
 	max-width: 400px;
 }
 
+.answerForm[hidden]{
+	display: none;
+}
+
 .scene{
 	height: 100%;
 	margin-bottom: 10px;

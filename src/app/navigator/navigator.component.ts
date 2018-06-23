@@ -17,7 +17,7 @@ export class NavigatorComponent {
   constructor(private breakpointObserver: BreakpointObserver, private token: TokenStorage, private userService: UserService) {}
 
   ngOnInit(){
-    if (!this.token.getTokenExpired()){
+    if (!this.token.getTokenExpired()) {
       this.userService.getUserByName(this.token.getDecodedToken().sub)
         .subscribe((user: User) => {
           this.currentUser = user;

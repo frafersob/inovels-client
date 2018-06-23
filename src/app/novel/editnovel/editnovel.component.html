@@ -33,22 +33,45 @@
 					</td>    
 				</tr>
 				<tr><td><br></td></tr>
+				<tr>
+				<td><img *ngIf="novel" class  = "novelImage" mat-card-image [src]="'data:' + novel.image.extension + ';base64,' +  
+						novel.image.src" [alt]="novel.name" style="margin: 0 0 0 0;"></td>  
+				</tr>
 				<tr>    
 					<td>       
 					<input type="file" (change)="onFileChange($event)" placeholder="Novel image"> 
 					<div *ngIf="image">{{image.name}}</div>
-					</td>   
-					<td><p><img *ngIf="novel" class  = "novelImage" mat-card-image [src]="'data:' + novel.image.extension + ';base64,' +  
-			novel.image.src" [alt]="novel.name"></p> </td>   
+					</td>   	 
 				</tr> 
-				
+				<tr><td><br></td></tr>
 					<tr>    
 					<td colspan="1" class="content-center">    
 					<button type="submit" [disabled]="!novelForm.valid" mat-raised-button color="accent">Edit</button>    
 				</td>
 				</tr>  
 			</table>    
-		</form>    
+		</form>   
 	</mat-card-content>    
 </mat-card>
 </div>
+<div class="pageDiv" >
+		<mat-card class="pageCard" *ngFor="let page of pages; let i = index; trackBy: trackByFn">
+			<mat-card-header>
+			<div class="pageAvatar" mat-card-avatar 
+			[style.background]="'url(data:' + page.image.extension + ';base64,' +  
+			page.image.src + ')'"
+    		[style.background-size]="'cover'"></div>
+			<mat-card-title>Page {{i+1}}</mat-card-title>
+			<mat-card-subtitle>{{(page.text.length>20)? (page.text | slice:0:20)+'...':(page.text)}}</mat-card-subtitle>
+			</mat-card-header>
+			<mat-card-actions align="end">
+	    		<span class = "pageButtons">
+	    		<button mat-button (click)="readPage(i + 1)"><mat-icon>visibility</mat-icon></button>
+	    		<button mat-button (click)="editPage(i + 1)"><mat-icon>edit</mat-icon></button>
+	    		<button mat-button (click)="deletePage(i + 1)"><mat-icon>delete</mat-icon></button>
+	    		</span>
+  			</mat-card-actions>
+		</mat-card>
+		<div class="buttonDiv"><button class = "newPageButton" mat-fab color="primary" (click)="newPage()"><mat-icon>add</mat-icon></button></div>
+</div>
+

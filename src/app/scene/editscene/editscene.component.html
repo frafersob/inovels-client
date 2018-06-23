@@ -1,0 +1,54 @@
+<div class="editPageCard">
+<mat-card>     
+	<mat-card-title>    
+	Edit Page
+	</mat-card-title>    
+
+	<mat-card-content>    
+		<form [formGroup]="pageForm" (ngSubmit)="onSubmit()">    
+			<table>    
+				<tr>    
+					<td colspan="1">    
+					<mat-form-field class="demo-full-width">    
+					<textarea matInput formControlName="text" placeholder="Text"></textarea>
+					<mat-error *ngIf="text.invalid && (text.dirty || text.touched)">
+						<mat-error *ngIf="text.errors.required">Text is required.</mat-error>
+						<mat-error *ngIf="text.errors.minlength">Text must be at least 6 characters long.</mat-error>
+						<mat-error *ngIf="text.errors.maxlength">Text must not be longer than 5000 characters.</mat-error>
+					</mat-error>
+					</mat-form-field>    
+					</td>    
+				</tr>
+				<tr><td><br></td></tr>
+				<tr>    
+					<td>    
+					<mat-form-field class="demo-full-width">    
+					<input matInput formControlName="answer" placeholder="Answer">
+					<mat-error *ngIf="answer.invalid && (answer.dirty || answer.touched)">
+						<mat-error *ngIf="answer.errors.maxlength">Answer must not be longer than 15 characters.</mat-error>
+					</mat-error>
+					</mat-form-field>    
+					</td>      
+				</tr>
+				<tr><td><br></td></tr>
+				<tr>
+				<td><img *ngIf="page" class = "pageImage" mat-card-image [src]="'data:' + page.image.extension + ';base64,' +  
+						page.image.src" style="margin: 0 0 0 0;"></td>  
+				</tr>
+				<tr>    
+					<td>       
+					<input type="file" (change)="onFileChange($event)" placeholder="Page image"> 
+					<div *ngIf="image">{{image.name}}</div>
+					</td>   	 
+				</tr> 
+				<tr><td><br></td></tr>
+					<tr>    
+					<td colspan="1" class="content-center">    
+					<button type="submit" [disabled]="!pageForm.valid" mat-raised-button color="accent">Edit</button>    
+				</td>
+				</tr>  
+			</table>    
+		</form>   
+	</mat-card-content>    
+</mat-card>
+</div>

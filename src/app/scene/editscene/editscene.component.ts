@@ -1,10 +1,10 @@
 import { TokenStorage } from '../../core/token.storage';
+import { Novel } from '../../novel/novel';
+import { NovelService } from '../../novel/novel.service';
 import { Scene } from '../../scene/scene';
 import { SceneService } from '../../scene/scene.service';
 import { User } from '../../user/user';
 import { UserService } from '../../user/user.service';
-import { Novel } from '../novel';
-import { NovelService } from '../novel.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -13,14 +13,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-editnovel',
-  templateUrl: './editnovel.component.html',
-  styleUrls: ['./editnovel.component.css']
+  selector: 'app-editscene',
+  templateUrl: './editscene.component.html',
+  styleUrls: ['./editscene.component.css']
 })
-export class EditnovelComponent implements OnInit {
+export class EditsceneComponent implements OnInit {
   novel: Novel;
-  pages: Scene[];
-  novelForm: FormGroup;
+  page: Scene;
+  pageForm: FormGroup;
   currentUser: User;
   constructor(private route: ActivatedRoute, private location: Location,
     private router: Router, private token: TokenStorage,
@@ -37,12 +37,14 @@ export class EditnovelComponent implements OnInit {
       });
       this.route.queryParams.subscribe(params => {
       let novelid = Number(params['id']);
-      if (novelid != null && novelid > 0) {
+      let pageid = Number(params['p']);
+      if (novelid != null && novelid > 0 && pageid != null && pageid > 0) {
         this.createForm();
         this.novelService.getNovel(novelid)
-          .subscribe(novel => {this.novelForm.setValue(novel); this.novel = novel});
+          .subscribe(novel => {this.novel = novel});
         this.sceneService.getScenes(novelid)
-          .subscribe(scenes => this.pages = scenes);
+          .subscribe(scenes => {this.page = scenes[pageid - 1];
+                                this.pageForm.setValue(scenes[pageid - 1])});
         console.log(this.novel);
       } else {
         this.router.navigate(['']);
@@ -52,22 +54,19 @@ export class EditnovelComponent implements OnInit {
   }
 
   private createForm() {
-    this.novelForm = new FormGroup({
+    this.pageForm = new FormGroup({
       id: new FormControl(''),
-      user: new FormControl(''),
-      scenes: new FormControl(''),
-      createDateTime: new FormControl(''),
-      updateDateTime: new FormControl(''),
-      name: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(15)]),
-      description: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      pageNumber: new FormControl(''),
+      answer: new FormControl('', [Validators.maxLength(15)]),
+      text: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(5000)]),
       image: new FormControl('', [Validators.required])
     });
   }
 
   onFileChange(event) {
-    console.log('onfilechange');
+    console.log("onfilechange");
     let reader = new FileReader();
-     if (event.target.files && event.target.files.length) {
+     if(event.target.files && event.target.files.length) {
       const image = event.target.files[0];
       var imagerender = new Image();
       reader.readAsDataURL(image);
@@ -76,7 +75,7 @@ export class EditnovelComponent implements OnInit {
       reader.onload = () => {
         imagerender.src = reader.result;
         imagerender.onload = () => {
-          this.novelForm.patchValue({
+          this.pageForm.patchValue({
             image: {
               user: this.currentUser,
               name: image.name,
@@ -98,21 +97,19 @@ export class EditnovelComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.novelForm.valid) {
-
-      let novel = {
-        id: this.novelForm.controls['id'].value,
-        name: this.novelForm.controls['name'].value,
-        description: this.novelForm.controls['description'].value,
-        image: this.novelForm.get('image').value,
-        scenes: this.novelForm.controls['scenes'].value,
-        createDateTime: null,
-        updateDateTime: null,
-        user: this.currentUser};
-      this.novelService.updateNovel(novel).subscribe(
+    if (this.pageForm.valid) {
+      let page = {
+        id: this.pageForm.controls['id'].value,
+        pageNumber: this.pageForm.controls['pageNumber'].value,
+        novel: this.novel,
+        text: this.pageForm.controls['text'].value,
+        image: this.pageForm.get('image').value,
+        answer: this.pageForm.controls['answer'].value
+        };
+      this.sceneService.updateScene(page).subscribe(
         data => {
           this.ngOnInit();
-          let snackBarRef = this.snackBar.open('Novel edited', 'Dismiss', {
+          let snackBarRef = this.snackBar.open('Page edited', 'Dismiss', {
             duration: 500});
         },
         (err: HttpErrorResponse) => {
@@ -127,31 +124,6 @@ export class EditnovelComponent implements OnInit {
       }
    }
 
-  newPage() {
-    let page = {
-        id: null,
-        pageNumber: this.pages.length + 1,
-        novel: this.novel,
-        text: 'Text of page ' + (this.pages.length + 1),
-        image: null,
-        answer: ''
-        };
-      this.sceneService.createScene(page).subscribe(
-        data => {
-          this.ngOnInit();
-          let snackBarRef = this.snackBar.open('Page created', 'Dismiss', {
-            duration: 500});
-        },
-        (err: HttpErrorResponse) => {
-          if (err.error instanceof Error) {
-            console.log(err.error);
-          } else {
-            console.log(err.error);
-          }
-        }
-      );
-  }
-
   trackByFn(index, item) {
     return index;
   }
@@ -161,10 +133,10 @@ export class EditnovelComponent implements OnInit {
   }
 
   editPage(id: number) {
-    this.router.navigate(['editscene'], { queryParams: { id: this.novel.id, p: id} });
+    this.router.navigate(['editscene'], { queryParams: { id: this.novel.id, p: id } });
   }
 
-  get name(): any { return this.novelForm.get('name'); }
-  get description(): any { return this.novelForm.get('description'); }
+  get text(): any { return this.pageForm.get('text'); }
+  get answer(): any { return this.pageForm.get('answer'); }
 
 }

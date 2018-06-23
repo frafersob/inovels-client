@@ -4,6 +4,7 @@ import { CreatenovelComponent } from '../novel/createnovel/createnovel.component
 import { EditnovelComponent } from '../novel/editnovel/editnovel.component';
 import { NovelComponent } from '../novel/novel.component';
 import { NovelService } from '../novel/novel.service';
+import { EditsceneComponent } from '../scene/editscene/editscene.component';
 import { SceneComponent } from '../scene/scene.component';
 import { SceneService } from '../scene/scene.service';
 import { EdituserComponent } from '../user/edituser/edituser.component';
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'newnovel', component: CreatenovelComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'editnovel', component: EditnovelComponent, runGuardsAndResolvers: 'always' },
+  { path: 'editscene', component: EditsceneComponent, runGuardsAndResolvers: 'always' },
   { path: 'viewuser', component: EdituserComponent, runGuardsAndResolvers: 'always' },
   { path: 'edituser', component: EdituserComponent, runGuardsAndResolvers: 'always' },
   { path: 'novel', component: SceneComponent },

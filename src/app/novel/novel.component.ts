@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class NovelComponent implements OnInit {
   novels: Novel[];
   currentUser: User;
+  currentProgress: Map<number, number>;
   constructor(private router: Router, private novelService: NovelService,
   private token: TokenStorage, private userService: UserService) { }
 
@@ -25,6 +26,10 @@ export class NovelComponent implements OnInit {
         this.userService.getUserByName(this.token.getDecodedToken().sub)
           .subscribe((user: User) => {
             this.currentUser = user;
+            this.userService.getProgresses(this.currentUser.id)
+              .subscribe((progress: any) => {
+                this.currentProgress = progress;
+            });
         });
       }
   }
@@ -36,7 +41,8 @@ export class NovelComponent implements OnInit {
   editNovel(id: number) {
     this.router.navigate(['editnovel'], { queryParams: { id: id} });
   }
-  
+
+
   viewUser(id: number) {
     this.router.navigate(['viewuser'], { queryParams: { id: id} });
   }

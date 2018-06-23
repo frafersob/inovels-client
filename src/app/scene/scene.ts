@@ -3,7 +3,7 @@ import { Image } from './image';
 export class Scene {
         id: number;
         novel: Novel;
-        images: Image[];
+        image: Image;
         text: string;
         answer: string;
 }

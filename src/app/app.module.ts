@@ -31,6 +31,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './core/app.routing.module';
 import { FileInputAccessorModule } from 'file-input-accessor';
 import { EdituserComponent } from './user/edituser/edituser.component';
+import { EditsceneComponent } from './scene/editscene/editscene.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { EdituserComponent } from './user/edituser/edituser.component';
     SignupComponent,
     ErrorDialogComponent,
     EdituserComponent,
+    EditsceneComponent,
   ],
   imports: [
     BrowserModule,
