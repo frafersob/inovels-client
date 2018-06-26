@@ -1,5 +1,6 @@
 import { TokenStorage } from '../../core/token.storage';
 import { NavigatorComponent } from '../../navigator/navigator.component';
+import { Novel } from '../../novel/novel';
 import { NovelService } from '../../novel/novel.service';
 import { User } from '../user';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
@@ -19,7 +20,10 @@ export class EdituserComponent implements OnInit {
   signupForm: FormGroup;
   user: User;
   sameAccount: boolean;
-  
+  currentProgress: Map<number, number>;
+  currentNovels: String[];
+  novels: Novel[];
+
   static matchingConfirmPasswords(passwordKey: any) {
     let passwordInput = passwordKey['value'];
     if (passwordInput.Password === passwordInput.ConfirmPassword) {
@@ -46,6 +50,16 @@ export class EdituserComponent implements OnInit {
                   this.signupForm.controls['avatar'].setValue(user.avatar);
                   this.user = user;
                   this.sameAccount = false;
+                  this.userService.getProgresses(this.user.id)
+                  .subscribe((progress: any) => {
+                    this.currentProgress = progress;
+                    this.currentNovels = Object.keys(progress);
+                    console.log("branch 1 " + Object.keys(progress));
+                    this.novelService.getNovelsByProgress(this.currentNovels)
+                      .subscribe((novels) => {
+                          this.novels = novels;
+                        });
+                  });
             });
         } else {
             this.userService.getUserByName(this.token.getDecodedToken().sub)
@@ -54,6 +68,16 @@ export class EdituserComponent implements OnInit {
                   this.signupForm.controls['avatar'].setValue(user.avatar);
                   this.user = user;
                   this.sameAccount = true;
+                  this.userService.getProgresses(this.user.id)
+                  .subscribe((progress: any) => {
+                    this.currentProgress = progress;
+                    this.currentNovels = Object.keys(progress);
+                    console.log("branch 2 " + Object.keys(progress));
+                    this.novelService.getNovelsByProgress(this.currentNovels)
+                      .subscribe((novels) => {
+                          this.novels = novels;
+                        });
+                  });
             });
           }
       });
@@ -148,6 +172,10 @@ export class EdituserComponent implements OnInit {
 
       }
    }
+
+  readNovel(id: number) {
+    this.router.navigate(['novel'], { queryParams: { id: id, p: 1 } });
+  }
 
 
   get username(): any { return this.signupForm.get('username'); }

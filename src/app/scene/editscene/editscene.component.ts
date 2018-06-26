@@ -22,6 +22,7 @@ export class EditsceneComponent implements OnInit {
   page: Scene;
   pageForm: FormGroup;
   currentUser: User;
+  pageid: number;
   constructor(private route: ActivatedRoute, private location: Location,
     private router: Router, private token: TokenStorage,
     private userService: UserService, public snackBar: MatSnackBar,
@@ -38,6 +39,7 @@ export class EditsceneComponent implements OnInit {
       this.route.queryParams.subscribe(params => {
       let novelid = Number(params['id']);
       let pageid = Number(params['p']);
+      this.pageid = pageid;
       if (novelid != null && novelid > 0 && pageid != null && pageid > 0) {
         this.createForm();
         this.novelService.getNovel(novelid)
@@ -128,12 +130,16 @@ export class EditsceneComponent implements OnInit {
     return index;
   }
 
-  readPage(id: number) {
-    this.router.navigate(['novel'], { queryParams: { id: this.novel.id, p: id } });
+  readPage() {
+    this.router.navigate(['novel'], { queryParams: { id: this.novel.id, p: this.pageid } });
   }
 
   editPage(id: number) {
     this.router.navigate(['editscene'], { queryParams: { id: this.novel.id, p: id } });
+  }
+
+  editNovel() {
+    this.router.navigate(['editnovel'], { queryParams: { id: this.novel.id} });
   }
 
   get text(): any { return this.pageForm.get('text'); }

@@ -1,0 +1,53 @@
+{
+    "nav": {
+    	"novellist": "Novels",
+        "newnovel": "New Novel",
+        "language": "Language",
+        "login" : "Log in",
+        "logout": "Log out",
+        "signup": "Sign up",
+        "english": "English",
+        "spanish": "Spanish",
+        "french": "French",
+        "german": "German"
+   	},
+   	"novel": {
+   		"page": "page",
+   		"pages": "pages",
+   		"read": "Read"
+  	},	
+ 	"scene": {
+  		"previouspage": "PREVIOUS PAGE",
+  		"nextpage": "NEXT PAGE"
+  	},
+  	"user": {
+      "profile": "Profile",
+  		"editprofile": "Editing Profile",
+  		"accountcreated": "Account Created",
+  		"submit": "Edit"
+	},
+	"editscene": {
+		"editnovel": "Edit Novel",
+		"viewpage": "View Page",
+		"editingpage": "Editing Page",
+		"answer": "Answer",
+		"submit": "Edit"
+	},
+	"editnovel": {
+		"editingnovel": "Editing Novel",
+		"nameofnovel": "Name of Novel",
+		"description": "Description",
+		"submit": "Edit",
+    "page": "Página"
+	},
+	"createnovel": {
+		"nameofnovel": "Name of Novel",
+		"description": "Description",
+		"create": "Create",
+    "creating": "Creating"
+	},
+  "login": {
+    "username": "Username",
+    "password": "Password"
+  }
+}

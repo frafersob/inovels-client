@@ -3,12 +3,12 @@
 <!-- Title of an Card -->    
 	<div *ngIf="sameAccount">
 	<mat-card-title>    
-	Edit Profile 
+	{{ 'user.editprofile' | translate }}
 	</mat-card-title> 
 	</div>
 	<div *ngIf="!sameAccount">
 	<mat-card-title>    
-	Profile 
+	{{ 'user.profile' | translate }} 
 	</mat-card-title> 
 	</div>   
 
@@ -20,7 +20,7 @@
 					<h2>{{user.username}}</h2> 
 					</td>
 					</tr>
-				<tr><td>Account created: {{user.createDateTime | timeAgo}}</td></tr>
+				<tr><td>{{ 'user.accountcreated' | translate }}: {{user.createDateTime | timeAgo}}</td></tr>
 				<tr>
 				<td>
 				<img class = "userAvatar" mat-card-image [src]="'data:' + user.avatar.extension + ';base64,' +  
@@ -34,11 +34,32 @@
 				</tr>    
 				<tr *ngIf="sameAccount">    
 					<td colspan="1" class="content-center">    
-					<button type="submit" [disabled]="!signupForm.valid" mat-raised-button color="accent">Submit</button>      
+					<button type="submit" [disabled]="!signupForm.valid" mat-raised-button color="accent">{{ 'user.submit' | translate }}</button>      
 					</td>    
 				</tr>    
 			</table>    
 		</form>    
 	</mat-card-content>    
 </mat-card>
+</div>
+<div class="novelDiv" >
+		<mat-card class="novelCard" *ngFor="let novel of novels; let i = index; trackBy: trackByFn">
+			<mat-card-header>
+			<div class="novelAvatar" mat-card-avatar 
+			[style.background]="'url(data:' + novel.image.extension + ';base64,' +  
+			novel.image.src + ')'"
+    		[style.background-size]="'cover'"
+    		[style.background-position]="'center'"></div>
+			<mat-card-title>{{novel.name}} ({{currentProgress[novel.id]}}/{{novel.scenes.length}} {{ 'novel.pages' | translate }})</mat-card-title>
+			<mat-card-subtitle>{{(novel.description.length>40)? (novel.description | slice:0:40)+'...':(novel.description)}}</mat-card-subtitle>
+			</mat-card-header>
+			<mat-card-content>
+			<mat-progress-bar mode="determinate" [value]="(currentProgress[novel.id]/novel.scenes.length)*100"></mat-progress-bar>
+			</mat-card-content>
+			<mat-card-actions align="end">
+	    		<span class = "novelButtons">
+	    		<button mat-button (click)="readNovel(novel.id)"><mat-icon>visibility</mat-icon></button>
+	    		</span>
+  			</mat-card-actions>
+		</mat-card>
 </div>

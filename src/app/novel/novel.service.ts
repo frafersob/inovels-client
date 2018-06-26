@@ -19,6 +19,11 @@ export class NovelService {
                 .map(response => <Novel>response);
   }
 
+  getNovelsByProgress(progress: String[]) {
+     return this.http.get('http://localhost:8080/api/novelsByIds/' + progress)
+                .map(response => <Novel[]>response);
+  }
+
   public createNovel(novel: Novel) {
     console.log('creating novel');
     console.log(novel);

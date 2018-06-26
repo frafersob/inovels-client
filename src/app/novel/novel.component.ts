@@ -19,7 +19,7 @@ export class NovelComponent implements OnInit {
   private token: TokenStorage, private userService: UserService) { }
 
   ngOnInit() {
-      this.novelService.getNovels()
+     this.novelService.getNovels()
           .subscribe(novels => this.novels = novels);
 
       if (!this.token.getTokenExpired()) {

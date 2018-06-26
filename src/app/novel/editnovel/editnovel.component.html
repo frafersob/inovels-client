@@ -1,40 +1,40 @@
 <div class="editNovelCard">
 <mat-card>     
 	<mat-card-title>    
-	Edit Novel
+	{{ 'editnovel.editingnovel' | translate }}
 	</mat-card-title>    
 
 	<mat-card-content>    
 		<form [formGroup]="novelForm" (ngSubmit)="onSubmit()">    
 			<table>    
 				<tr>    
-					<td>    
+					<td colspan="2">    
 					<mat-form-field class="demo-full-width">    
-					<input matInput formControlName="name" placeholder="Name of Novel">
+					<input matInput formControlName="name" placeholder="{{ 'editnovel.nameofnovel' | translate }}">
 					<mat-error *ngIf="name.invalid && (name.dirty || name.touched)">
-						<mat-error *ngIf="name.errors.required">Novel name is required.</mat-error>
-						<mat-error *ngIf="name.errors.minlength">Novel name must be at least 4 characters long.</mat-error>
-						<mat-error *ngIf="name.errors.maxlength">Novel name must not be longer than 15 characters.</mat-error>
+						<mat-error *ngIf="name.errors.required">{{ 'editnovel.nameofnovel' | translate }} is required.</mat-error>
+						<mat-error *ngIf="name.errors.minlength">{{ 'editnovel.nameofnovel' | translate }} must be at least 4 characters long.</mat-error>
+						<mat-error *ngIf="name.errors.maxlength">{{ 'editnovel.nameofnovel' | translate }} must not be longer than 15 characters.</mat-error>
 					</mat-error>
 					</mat-form-field>    
 					</td>      
 				</tr>
 				<tr><td><br></td></tr>
 				<tr>    
-					<td colspan="1">    
+					<td colspan="2">    
 					<mat-form-field class="demo-full-width">    
-					<textarea matInput formControlName="description" placeholder="Description"></textarea>
+					<textarea matInput formControlName="description" placeholder="{{ 'editnovel.description' | translate }}"></textarea>
 					<mat-error *ngIf="description.invalid && (description.dirty || description.touched)">
-						<mat-error *ngIf="description.errors.required">Description is required.</mat-error>
-						<mat-error *ngIf="description.errors.minlength">Description must be at least 10 characters long.</mat-error>
-						<mat-error *ngIf="description.errors.maxlength">Description must not be longer than 100 characters.</mat-error>
+						<mat-error *ngIf="description.errors.required">{{ 'editnovel.description' | translate }} is required.</mat-error>
+						<mat-error *ngIf="description.errors.minlength">{{ 'editnovel.description' | translate }} must be at least 10 characters long.</mat-error>
+						<mat-error *ngIf="description.errors.maxlength">{{ 'editnovel.description' | translate }} must not be longer than 100 characters.</mat-error>
 					</mat-error>
 					</mat-form-field>    
 					</td>    
 				</tr>
 				<tr><td><br></td></tr>
 				<tr>
-				<td><img *ngIf="novel" class  = "novelImage" mat-card-image [src]="'data:' + novel.image.extension + ';base64,' +  
+				<td colspan="2"><img *ngIf="novel" class  = "novelImage" mat-card-image [src]="'data:' + novel.image.extension + ';base64,' +  
 						novel.image.src" [alt]="novel.name" style="margin: 0 0 0 0;"></td>  
 				</tr>
 				<tr>    
@@ -46,8 +46,11 @@
 				<tr><td><br></td></tr>
 					<tr>    
 					<td colspan="1" class="content-center">    
-					<button type="submit" [disabled]="!novelForm.valid" mat-raised-button color="accent">Edit</button>    
-				</td>
+						<button type="submit" [disabled]="!novelForm.valid" mat-raised-button color="primary">{{ 'editnovel.submit' | translate }}</button>    
+					</td>
+					<td *ngIf="!novelForm.dirty && novel" colspan="1" class="content-center">    
+						<a class="saveButton" title="Extract novel" [href]="downloadJsonHref" [download]="novel.name+'.json'"><mat-icon>save_alt</mat-icon></a>    
+					</td>
 				</tr>  
 			</table>    
 		</form>   
@@ -60,15 +63,15 @@
 			<div class="pageAvatar" mat-card-avatar 
 			[style.background]="'url(data:' + page.image.extension + ';base64,' +  
 			page.image.src + ')'"
-    		[style.background-size]="'cover'"></div>
-			<mat-card-title>Page {{i+1}}</mat-card-title>
+    		[style.background-size]="'cover'"
+    		[style.background-position]="'center'"></div>
+			<mat-card-title>{{ 'editnovel.page' | translate }} {{i+1}}</mat-card-title>
 			<mat-card-subtitle>{{(page.text.length>20)? (page.text | slice:0:20)+'...':(page.text)}}</mat-card-subtitle>
 			</mat-card-header>
 			<mat-card-actions align="end">
 	    		<span class = "pageButtons">
 	    		<button mat-button (click)="readPage(i + 1)"><mat-icon>visibility</mat-icon></button>
 	    		<button mat-button (click)="editPage(i + 1)"><mat-icon>edit</mat-icon></button>
-	    		<button mat-button (click)="deletePage(i + 1)"><mat-icon>delete</mat-icon></button>
 	    		</span>
   			</mat-card-actions>
 		</mat-card>

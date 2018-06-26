@@ -37,31 +37,33 @@ export class SceneComponent implements OnInit {
             this.userService.getProgresses(this.currentUser.id)
               .subscribe((progress: any) => {
                 this.currentProgress = progress;
-            });
-            this.novelid = Number(params['id']);
-            this.page = Number(params['p']);
-            if (this.novelid != null && this.page != null
-              && this.novelid > 0 && this.page > 0
-              && this.currentUser) {
-              this.novelService.getNovel(this.novelid)
-                .subscribe(novel => {this.novel = novel; this.user = novel.user});
-              this.sceneService.getScenes(this.novelid)
-                .subscribe(scenes => {this.scene = scenes[this.page - 1]; this.pages = scenes.length});
-              if (!this.currentProgress || !this.currentProgress[this.novelid]) {
-                this.userService.updateProgress(this.currentUser.id, this.novelid).subscribe(
-                  data => {},
-                  (err: HttpErrorResponse) => {
-                    if (err.error instanceof Error) {
-                      console.log(err.error);
-                    } else {
-                      console.log(err.error);
+                this.novelid = Number(params['id']);
+                this.page = Number(params['p']);
+                if (this.novelid != null && this.page != null
+                  && this.novelid > 0 && this.page > 0
+                  && this.currentUser) {
+                  this.novelService.getNovel(this.novelid)
+                    .subscribe(novel => {this.novel = novel; this.user = novel.user});
+                  this.sceneService.getScenes(this.novelid)
+                    .subscribe(scenes => {this.scene = scenes[this.page - 1]; this.pages = scenes.length});
+                  if (!this.currentProgress || !this.currentProgress[this.novelid]) {
+                    if (!this.currentProgress[this.novelid]) {
+                    this.userService.updateProgress(this.currentUser.id, this.novelid).subscribe(
+                      data => {},
+                      (err: HttpErrorResponse) => {
+                        if (err.error instanceof Error) {
+                          console.log(err.error);
+                        } else {
+                          console.log(err.error);
+                        }
+                      }
+                    );
                     }
                   }
-                );
-              }
-            } else {
-              this.router.navigate(['']);
-            }
+                } else {
+                  this.router.navigate(['']);
+                }
+            });
         });
       } else {
         console.log('token expired');

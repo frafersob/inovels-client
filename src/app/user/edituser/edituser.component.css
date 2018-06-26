@@ -2,7 +2,16 @@
 	max-width: 420px;
 	margin-left: auto;
 	margin-right: auto;
+	margin-bottom: 10px;
 }
+
+.novelDiv{
+	max-width: 420px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 10px;
+}
+
 
 .userAvatar{
 	max-width: 200px;
@@ -10,4 +19,27 @@
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 0 !important;
+}
+
+.buttonDiv{
+	text-align: center;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.novelCard{
+	max-width: 420px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 10px;
+}
+
+
+.novelButtons button{
+	min-width: 50px;
+	padding: 0;
+}
+
+.novelAvatar{
+	margin-right: 10px;
 }

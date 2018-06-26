@@ -4,7 +4,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './core/material.module';
-import {TimeAgoPipe} from 'time-ago-pipe';
 import * as moment from 'moment';
 import { AppComponent } from './app.component';
 import { Interceptor } from './core/app.interceptor';
@@ -19,6 +18,8 @@ import { NovelService } from './novel/novel.service';
 import { TokenStorage } from './core/token.storage';
 import { UserComponent } from './user/user.component';
 import { UserService } from './user/user.service';
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { Routes, RouterModule, Router } from '@angular/router';
@@ -32,12 +33,17 @@ import { AppRoutingModule } from './core/app.routing.module';
 import { FileInputAccessorModule } from 'file-input-accessor';
 import { EdituserComponent } from './user/edituser/edituser.component';
 import { EditsceneComponent } from './scene/editscene/editscene.component';
+import { HttpClient } from '@angular/common/http';
+import { TimeagoModule, TimeagoIntl } from 'ngx-timeago';
+import { NgxTrumbowygModule } from 'ngx-trumbowyg';
+
+export class MyIntl extends TimeagoIntl {
+}
 
 @NgModule({
   declarations: [
     AppComponent,
     NovelComponent,
-    TimeAgoPipe,
     NavigatorComponent,
     LoginComponent,
     UserComponent,
@@ -59,7 +65,34 @@ import { EditsceneComponent } from './scene/editscene/editscene.component';
     ReactiveFormsModule,
     MaterialModule,
     AppRoutingModule,
-    FileInputAccessorModule
+    FileInputAccessorModule,
+    TimeagoModule.forRoot({
+      intl: { provide: TimeagoIntl, useClass: MyIntl }
+    }),
+    NgxTrumbowygModule.withConfig({
+            lang: 'en',
+            svgPath: './assets/icons.svg',
+            removeformatPasted: true,
+            autogrow: true,
+            btns: [
+                ['formatting'],
+                ['strong', 'em', 'del'],
+                ['superscript', 'subscript'],
+                ['link'],
+                ['insertImage'],
+                ['unorderedList', 'orderedList'],
+                ['horizontalRule'],
+                ['removeformat'],
+                ['fullscreen']
+            ]
+        }),
+    TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        })
   ],
   entryComponents: [ErrorDialogComponent],
   providers: [ErrorDialogComponent, NovelService, UserService, SceneService, AuthService, TokenStorage,
@@ -74,3 +107,8 @@ export class AppModule {
     console.log('Routes: ', JSON.stringify(router.config, undefined, 2));
   }
 }
+
+export function HttpLoaderFactory(http: HttpClient) {
+    return new TranslateHttpLoader(http);
+}
+

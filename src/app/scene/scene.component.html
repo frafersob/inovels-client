@@ -1,27 +1,27 @@
-<mat-grid-tile *ngIf="scene">
-	<mat-card class="sceneCard">
-		<mat-card-header>
-		<mat-card-title><span *ngIf="novel" class="sceneName">{{novel.name}}</span></mat-card-title>
-		</mat-card-header>
-		  <img mat-card-image [src]="'data:' + scene.image.extension + ';base64,' +  
-			scene.image.src">
-		<mat-card-content>
-		<p class = "sceneText">{{scene.text}}</p>
-		<form class="answerForm" [hidden]="scene.answer == ''">
-		  <mat-form-field class="example-full-width">
-		    <input matInput #answerBox type="text" (keyup)="0">
-		  </mat-form-field>
-		</form>
-		</mat-card-content>
-		<mat-card-actions>
-    		<button mat-button [disabled]="!notFirstPage()" (click)="previousPage()">PREVIOUS PAGE</button>
-    		<button *ngIf="novel" mat-button [disabled]="!notLastPage() 
-    						|| ((currentProgress[novel.id] < (page + 1)) 
-    						&& (scene.answer !='') && (answerBox.value != scene.answer))" 
-    						(click)="nextPage()">NEXT PAGE</button>
-    		<span class="editButtons" *ngIf="currentUser && user">
-    		<button mat-button *ngIf="user.id === currentUser.id" (click)="editPage()"><mat-icon>edit</mat-icon></button>
-    		</span>
- 		</mat-card-actions>
-	</mat-card>
-</mat-grid-tile>
+
+<mat-card class="sceneCard" *ngIf="scene">
+	<mat-card-header>
+	<mat-card-title><span *ngIf="novel" class="sceneName">{{novel.name}}</span></mat-card-title>
+	</mat-card-header>
+	  <img mat-card-image [src]="'data:' + scene.image.extension + ';base64,' +  
+		scene.image.src">
+	<mat-card-content>
+	<div class = "sceneText" [innerHTML]="scene.text"></div>
+	<form class="answerForm" [hidden]="scene.answer == ''">
+	  <mat-form-field class="example-full-width">
+	    <input matInput #answerBox type="text" (keyup)="0">
+	  </mat-form-field>
+	</form>
+	</mat-card-content>
+	<mat-card-actions align="end">
+   		<button mat-button [disabled]="!notFirstPage()" (click)="previousPage()">{{ 'scene.previouspage' | translate }}</button>
+   		<button *ngIf="novel" mat-button [disabled]="!notLastPage() 
+   						|| ((currentProgress[novel.id] < (page + 1)) 
+   						&& (scene.answer !='') && (answerBox.value != scene.answer))" 
+   						(click)="nextPage()">{{ 'scene.nextpage' | translate }}</button>
+   		<div fxFlex></div>
+   		<span class="editButtons" *ngIf="currentUser && user">
+   		<button mat-button *ngIf="user.id === currentUser.id" (click)="editPage()"><mat-icon>edit</mat-icon></button>
+   		</span>
+	</mat-card-actions>
+</mat-card>

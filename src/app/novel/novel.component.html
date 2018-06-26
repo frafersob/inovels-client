@@ -6,14 +6,15 @@
 			<div class="novelAvatar" (click)="viewUser(novel.user.id)" mat-card-avatar 
 			[style.background]="'url(data:' + novel.user.avatar.extension + ';base64,' +  
 			novel.user.avatar.src + ')'"
-    		[style.background-size]="'cover'"></div>
+    		[style.background-size]="'cover'"
+    		[style.background-position]="'center'"></div>
 			<mat-card-title>{{novel.name}}</mat-card-title>
-			<mat-card-subtitle>{{novel.updateDateTime | timeAgo}}, 
+			<mat-card-subtitle>{{novel.updateDateTime | timeago:live}}, 
 			<span class = "novelPages" *ngIf="novel.scenes.length == 1">
-				{{novel.scenes.length}} page
+				{{novel.scenes.length}} {{ 'novel.page' | translate }}
 			</span>
 			<span class = "novelPages" *ngIf="novel.scenes.length != 1">
-				{{novel.scenes.length}} pages
+				{{novel.scenes.length}} {{ 'novel.pages' | translate }}
 			</span></mat-card-subtitle>
 			</mat-card-header>
 			  <img class = "novelImage" mat-card-image [src]="'data:' + novel.image.extension + ';base64,' +  
@@ -22,7 +23,7 @@
 			<p class = "novelDescription">{{novel.description}}</p>
 			</mat-card-content>
 			<mat-card-actions>
-	    		<button *ngIf="novel.scenes.length > 0" mat-button (click)="readNovel(novel.id)">READ</button>
+	    		<button *ngIf="novel.scenes.length > 0" mat-button (click)="readNovel(novel.id)">{{ 'novel.read' | translate }}</button>
 	    		<span class = "novelButtons" *ngIf="currentUser && (novel.user.id === currentUser.id)">
 	    		<button mat-button (click)="editNovel(novel.id)"><mat-icon>edit</mat-icon></button>
 	    		</span>

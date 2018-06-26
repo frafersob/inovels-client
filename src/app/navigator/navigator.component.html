@@ -11,13 +11,22 @@
       <a mat-list-item *ngIf="this.token.getToken() && !this.token.getTokenExpired() && this.currentUser" routerLink="/edituser"><span mat-card-avatar 
 			[style.background]="'url(data:' + this.currentUser.avatar.extension + ';base64,' +  
 			this.currentUser.avatar.src + ')'"
-    		[style.background-size]="'cover'"></span> 
+    		[style.background-size]="'cover'"
+    		[style.background-position]="'center'"></span> 
     		<span class="navUser" *ngIf="this.currentUser">{{this.currentUser.username}}</span></a>
-      <a mat-list-item routerLinkActive="active" routerLink="/novels">Home</a>
-      <a mat-list-item *ngIf="this.token.getToken() && !this.token.getTokenExpired()" routerLink="/newnovel">New Novel</a>
-      <a mat-list-item *ngIf="!this.token.getToken()" routerLink="/">Login</a>
-      <a mat-list-item *ngIf="!this.token.getToken()" routerLink="/signup">Sign Up</a>
-      <a mat-list-item *ngIf="this.token.getToken() &&!this.token.getTokenExpired()" (click)="this.token.signOut()" routerLink="/">Logout</a>
+      <a mat-list-item routerLinkActive="active" routerLink="/novels">{{ 'nav.novellist' | translate }}</a>
+      <a mat-list-item *ngIf="this.token.getToken() && !this.token.getTokenExpired()" routerLink="/newnovel">{{ 'nav.newnovel' | translate }}</a>
+      <mat-list-item [matMenuTriggerFor]="menu">{{ 'nav.language' | translate }}
+      <mat-menu #menu="matMenu">
+	    <button mat-menu-item (click)="useLanguage('en')"><span class="flag-icon flag-icon-gb"></span> {{ 'nav.english' | translate }}</button>
+	    <button mat-menu-item (click)="useLanguage('es')"><span class="flag-icon flag-icon-es-override"></span> {{ 'nav.spanish' | translate }}</button>
+	    <button mat-menu-item (click)="useLanguage('fr')"><span class="flag-icon flag-icon-fr"></span> {{ 'nav.french' | translate }}</button>
+	    <button mat-menu-item (click)="useLanguage('de')"><span class="flag-icon flag-icon-de"></span> {{ 'nav.german' | translate }}</button>
+	  </mat-menu>
+	  </mat-list-item>
+      <a mat-list-item *ngIf="!this.token.getToken()" routerLink="/">{{ 'nav.login' | translate }}</a>
+      <a mat-list-item *ngIf="!this.token.getToken()" routerLink="/signup">{{ 'nav.signup' | translate }}</a>
+      <a mat-list-item *ngIf="this.token.getToken() &&!this.token.getTokenExpired()" (click)="this.token.signOut()" routerLink="/">{{ 'nav.logout' | translate }}</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

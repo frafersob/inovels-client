@@ -1,7 +1,7 @@
 <div class="createNovelCard">
 <mat-card>     
 	<mat-card-title>    
-	Create Novel
+	{{ 'createnovel.creating' | translate }}
 	</mat-card-title>    
 
 	<mat-card-content>    
@@ -10,7 +10,7 @@
 				<tr>    
 					<td>    
 					<mat-form-field class="demo-full-width">    
-					<input matInput formControlName="name" placeholder="Name of Novel">
+					<input matInput formControlName="name" placeholder="{{ 'createnovel.nameofnovel' | translate }}">
 					<mat-error *ngIf="name.invalid && (name.dirty || name.touched)">
 						<mat-error *ngIf="name.errors.required">Novel name is required.</mat-error>
 						<mat-error *ngIf="name.errors.minlength">Novel name must be at least 4 characters long.</mat-error>
@@ -23,7 +23,7 @@
 				<tr>    
 					<td colspan="1">    
 					<mat-form-field class="demo-full-width">    
-					<textarea matInput formControlName="description" placeholder="Description"></textarea>
+					<textarea matInput formControlName="description" placeholder="{{ 'createnovel.description' | translate }}"></textarea>
 					<mat-error *ngIf="description.invalid && (description.dirty || description.touched)">
 						<mat-error *ngIf="description.errors.required">Description is required.</mat-error>
 						<mat-error *ngIf="description.errors.minlength">Description must be at least 10 characters long.</mat-error>
@@ -41,8 +41,7 @@
 				</tr> 
 					<tr>    
 					<td colspan="1" class="content-center">    
-					<button type="submit" [disabled]="!novelForm.valid" mat-raised-button color="accent">Create</button>    
-					<button mat-raised-button color="accent">Clear</button>    
+					<button type="submit" [disabled]="!novelForm.valid" mat-raised-button color="accent">{{ 'createnovel.create' | translate }}</button>
 					</td>    
 				</tr>    
 			</table>    

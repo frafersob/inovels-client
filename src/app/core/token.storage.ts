@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import * as jwtDecode from 'jwt-decode';
 
 const TOKEN_KEY = 'AuthToken';
+const LANG_KEY = 'NovelLanguage';
 
 @Injectable()
 export class TokenStorage {
@@ -19,6 +20,19 @@ export class TokenStorage {
   public saveToken(token: string) {
     localStorage.removeItem(TOKEN_KEY);
     localStorage.setItem(TOKEN_KEY,  token);
+  }
+
+  public saveLanguage(token: string) {
+    localStorage.removeItem(LANG_KEY);
+    localStorage.setItem(LANG_KEY,  token);
+  }
+
+  public getLanguage(): string {
+    if (localStorage.getItem(LANG_KEY) != null) {
+      return localStorage.getItem(LANG_KEY);
+    } else {
+      return 'en';
+    }
   }
 
   public getToken(): string {

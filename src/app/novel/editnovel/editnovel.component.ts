@@ -11,6 +11,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-editnovel',
@@ -22,11 +23,13 @@ export class EditnovelComponent implements OnInit {
   pages: Scene[];
   novelForm: FormGroup;
   currentUser: User;
+  downloadJsonHref: any;
+
   constructor(private route: ActivatedRoute, private location: Location,
     private router: Router, private token: TokenStorage,
     private userService: UserService, public snackBar: MatSnackBar,
     private novelService: NovelService, private sceneService: SceneService,
-    private cd: ChangeDetectorRef) { }
+    private cd: ChangeDetectorRef, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     if (!this.token.getTokenExpired()) {
@@ -40,10 +43,12 @@ export class EditnovelComponent implements OnInit {
       if (novelid != null && novelid > 0) {
         this.createForm();
         this.novelService.getNovel(novelid)
-          .subscribe(novel => {this.novelForm.setValue(novel); this.novel = novel});
+          .subscribe(novel => {
+            this.novelForm.setValue(novel); 
+            this.novel = novel; 
+            this.generateJsonDownload(this.novel);});
         this.sceneService.getScenes(novelid)
           .subscribe(scenes => this.pages = scenes);
-        console.log(this.novel);
       } else {
         this.router.navigate(['']);
       }
@@ -150,6 +155,14 @@ export class EditnovelComponent implements OnInit {
           }
         }
       );
+  }
+ 
+  generateJsonDownload(novel: Novel) {
+    let theJSON = JSON.stringify(novel);
+    let blob = new Blob([theJSON], { type: 'text/json' });
+    let url= window.URL.createObjectURL(blob);
+    let uri:SafeUrl = this.sanitizer.bypassSecurityTrustUrl(url);
+    this.downloadJsonHref = uri;
   }
 
   trackByFn(index, item) {
