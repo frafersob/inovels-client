@@ -1,7 +1,9 @@
-
+<div class ="cardContainer">
 <mat-card class="sceneCard" *ngIf="scene">
 	<mat-card-header>
+	<div class ="headerTitle">
 	<mat-card-title><span *ngIf="novel" class="sceneName">{{novel.name}}</span></mat-card-title>
+	</div>
 	</mat-card-header>
 	  <img mat-card-image [src]="'data:' + scene.image.extension + ';base64,' +  
 		scene.image.src">
@@ -25,3 +27,4 @@
    		</span>
 	</mat-card-actions>
 </mat-card>
+</div>

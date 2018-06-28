@@ -16,6 +16,9 @@ export class AppComponent {
   language: string;
   constructor(public el: ElementRef, private translate: TranslateService,
       private token: TokenStorage, intl: TimeagoIntl) {
+        translate.setDefaultLang('en');
+        this.language = 'en_US';
+        if (token) {
         translate.setDefaultLang(token.getLanguage());
         switch (token.getLanguage()) {
            case 'en': {
@@ -50,6 +53,7 @@ export class AppComponent {
               break;
            }
         }
+      }
     const lang = document.createAttribute('lang');
     lang.value = this.language;
     this.el.nativeElement.parentElement.parentElement.attributes.setNamedItem(lang);

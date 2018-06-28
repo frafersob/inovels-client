@@ -13,8 +13,8 @@
 					<input matInput formControlName="name" placeholder="{{ 'createnovel.nameofnovel' | translate }}">
 					<mat-error *ngIf="name.invalid && (name.dirty || name.touched)">
 						<mat-error *ngIf="name.errors.required">Novel name is required.</mat-error>
-						<mat-error *ngIf="name.errors.minlength">Novel name must be at least 4 characters long.</mat-error>
-						<mat-error *ngIf="name.errors.maxlength">Novel name must not be longer than 15 characters.</mat-error>
+						<mat-error *ngIf="name.errors.minlength">Novel name must be at least 3 characters long.</mat-error>
+						<mat-error *ngIf="name.errors.maxlength">Novel name must not be longer than 25 characters.</mat-error>
 					</mat-error>
 					</mat-form-field>    
 					</td>      
@@ -28,6 +28,44 @@
 						<mat-error *ngIf="description.errors.required">Description is required.</mat-error>
 						<mat-error *ngIf="description.errors.minlength">Description must be at least 10 characters long.</mat-error>
 						<mat-error *ngIf="description.errors.maxlength">Description must not be longer than 100 characters.</mat-error>
+					</mat-error>
+					</mat-form-field>    
+					</td>    
+				</tr>
+				<tr><td><br></td></tr>
+				<tr>    
+					<td colspan="1">    
+					<mat-form-field class="demo-full-width">    
+					<mat-select matInput formControlName="language" placeholder="{{ 'createnovel.language' | translate }}">
+				      <mat-option value="en">English</mat-option>
+				      <mat-option value="es">Español</mat-option>
+				      <mat-option value="fr">Français</mat-option>
+				      <mat-option value="de">Deutsch</mat-option>
+				    </mat-select>
+					<mat-error *ngIf="language.invalid && (language.dirty || language.touched)">
+						<mat-error *ngIf="language.errors.required">Language is required.</mat-error>
+						<mat-error *ngIf="language.errors.minlength">Language must be valid.</mat-error>
+						<mat-error *ngIf="language.errors.maxlength">Language must be valid.</mat-error>
+					</mat-error>
+					</mat-form-field>    
+					</td>    
+				</tr>
+				<tr><td><br></td></tr>
+				<tr>    
+					<td colspan="1">    
+					<mat-form-field class="demo-full-width">    
+					<mat-select matInput formControlName="agerange" placeholder="{{ 'createnovel.agerange' | translate }}">
+				      <mat-option value="10-12">10-12 {{ 'novel.yearsold' | translate }}</mat-option>
+				      <mat-option value="10-15">10-15 {{ 'novel.yearsold' | translate }}</mat-option>
+				      <mat-option value="10-18">10-18 {{ 'novel.yearsold' | translate }}</mat-option>
+				      <mat-option value="12-15">12-15 {{ 'novel.yearsold' | translate }}</mat-option>
+				      <mat-option value="12-18">12-18 {{ 'novel.yearsold' | translate }}</mat-option>
+				      <mat-option value="15-18">15-18 {{ 'novel.yearsold' | translate }}</mat-option>      
+				    </mat-select>
+					<mat-error *ngIf="agerange.invalid && (agerange.dirty || agerange.touched)">
+						<mat-error *ngIf="agerange.errors.required">Age range is required.</mat-error>
+						<mat-error *ngIf="agerange.errors.minlength">Age range must be valid.</mat-error>
+						<mat-error *ngIf="agerange.errors.maxlength">Age range must be valid.</mat-error>
 					</mat-error>
 					</mat-form-field>    
 					</td>    

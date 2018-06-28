@@ -33,8 +33,10 @@ export class CreatenovelComponent implements OnInit {
 
   private createForm() {
     this.novelForm = new FormGroup({
-      name: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(15)]),
+      name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(25)]),
       description: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      language: new FormControl('', [Validators.required]),
+      agerange: new FormControl('', [Validators.required]),
       image: new FormControl('', [Validators.required])
     });
   }
@@ -47,7 +49,6 @@ export class CreatenovelComponent implements OnInit {
       var imagerender = new Image();
       reader.readAsDataURL(image);
       console.log(image);
-      
       reader.onload = () => {
         imagerender.src = reader.result;
         imagerender.onload = () => {
@@ -63,8 +64,6 @@ export class CreatenovelComponent implements OnInit {
               offsetY: 0
             }
           });
-  
-          
         };
         this.cd.markForCheck();
        }
@@ -79,6 +78,8 @@ export class CreatenovelComponent implements OnInit {
         id: null,
         name: this.novelForm.controls['name'].value,
         description: this.novelForm.controls['description'].value,
+        language: this.novelForm.controls['language'].value,
+        agerange: this.novelForm.controls['agerange'].value,
         image: this.novelForm.get('image').value,
         scenes: null,
         createDateTime: null,
@@ -104,5 +105,7 @@ export class CreatenovelComponent implements OnInit {
 
   get name(): any { return this.novelForm.get('name'); }
   get description(): any { return this.novelForm.get('description'); }
+  get language(): any { return this.novelForm.get('language'); }
+  get agerange(): any { return this.novelForm.get('agerange'); }
 
 }

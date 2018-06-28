@@ -33,6 +33,40 @@
 					</td>    
 				</tr>
 				<tr><td><br></td></tr>
+				<tr>    
+					<td colspan="2">    
+					<mat-form-field class="demo-full-width">    
+					<mat-select matInput formControlName="language" placeholder="{{ 'createnovel.language' | translate }}">
+				      <mat-option value="en">English</mat-option>
+				      <mat-option value="es">Español</mat-option>
+				      <mat-option value="fr">Français</mat-option>
+				      <mat-option value="de">Deutsch</mat-option>
+				    </mat-select>
+					<mat-error *ngIf="language.invalid && (language.dirty || language.touched)">
+						<mat-error *ngIf="language.errors.required">Language is required.</mat-error>
+					</mat-error>
+					</mat-form-field>    
+					</td>    
+				</tr>
+				<tr><td><br></td></tr>
+				<tr>    
+					<td colspan="2">    
+					<mat-form-field class="demo-full-width">    
+					<mat-select matInput formControlName="agerange" placeholder="{{ 'createnovel.agerange' | translate }}">
+				      <mat-option value="10-12">10-12 {{ 'novel.yearsold' | translate }}</mat-option>
+				      <mat-option value="10-15">10-15 {{ 'novel.yearsold' | translate }}</mat-option>
+				      <mat-option value="10-18">10-18 {{ 'novel.yearsold' | translate }}</mat-option>
+				      <mat-option value="12-15">12-15 {{ 'novel.yearsold' | translate }}</mat-option>
+				      <mat-option value="12-18">12-18 {{ 'novel.yearsold' | translate }}</mat-option>
+				      <mat-option value="15-18">15-18 {{ 'novel.yearsold' | translate }}</mat-option>      
+				    </mat-select>
+					<mat-error *ngIf="agerange.invalid && (agerange.dirty || agerange.touched)">
+						<mat-error *ngIf="agerange.errors.required">Age range is required.</mat-error>
+					</mat-error>
+					</mat-form-field>    
+					</td>    
+				</tr>
+				<tr><td><br></td></tr>
 				<tr>
 				<td colspan="2"><img *ngIf="novel" class  = "novelImage" mat-card-image [src]="'data:' + novel.image.extension + ';base64,' +  
 						novel.image.src" [alt]="novel.name" style="margin: 0 0 0 0;"></td>  
@@ -66,7 +100,7 @@
     		[style.background-size]="'cover'"
     		[style.background-position]="'center'"></div>
 			<mat-card-title>{{ 'editnovel.page' | translate }} {{i+1}}</mat-card-title>
-			<mat-card-subtitle>{{(page.text.length>20)? (page.text | slice:0:20)+'...':(page.text)}}</mat-card-subtitle>
+			<mat-card-subtitle>{{(page.text.length>25)? (page.text | slice:0:25)+'...':(page.text)}}</mat-card-subtitle>
 			</mat-card-header>
 			<mat-card-actions align="end">
 	    		<span class = "pageButtons">

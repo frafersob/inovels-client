@@ -173,8 +173,8 @@ export class EdituserComponent implements OnInit {
       }
    }
 
-  readNovel(id: number) {
-    this.router.navigate(['novel'], { queryParams: { id: id, p: 1 } });
+  readNovel(id: number, p: number) {
+    this.router.navigate(['novel'], { queryParams: { id: id, p: p } });
   }
 
 

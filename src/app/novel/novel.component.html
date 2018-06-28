@@ -8,8 +8,16 @@
 			novel.user.avatar.src + ')'"
     		[style.background-size]="'cover'"
     		[style.background-position]="'center'"></div>
-			<mat-card-title>{{novel.name}}</mat-card-title>
-			<mat-card-subtitle>{{novel.updateDateTime | timeago:live}}, 
+			<mat-card-title>
+			<div class="novelTitle"><span class="novelName">{{novel.name}}</span>
+			<span *ngIf="novel.language=='en'" class="flag-icon flag-icon-gb novelFlag"></span>
+			<span *ngIf="novel.language=='es'" class="flag-icon flag-icon-es-override novelFlag"></span>
+			<span *ngIf="novel.language=='fr'" class="flag-icon flag-icon-fr novelFlag"></span>
+			<span *ngIf="novel.language=='de'" class="flag-icon flag-icon-de novelFlag"></span>
+			<span class="ageRange">{{novel.agerange}} {{ 'novel.yearsold' | translate }}</span>
+			</div>
+			</mat-card-title>
+			<mat-card-subtitle>{{novel.updateDateTime | date: 'dd/MM/yyyy'}}, 
 			<span class = "novelPages" *ngIf="novel.scenes.length == 1">
 				{{novel.scenes.length}} {{ 'novel.page' | translate }}
 			</span>

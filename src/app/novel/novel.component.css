@@ -22,17 +22,30 @@ ul
     margin:0px;
 }
 
-.novelImage {
-	max-width: 400px;
-	max-height: 225px;
-}
-
 .novelButtons button{
 	float: right;
 	min-width: 50px;
 	padding: 0;
 }
 
+.novelTitle{
+	display: flex;
+	justify-content: space-between;
+}
+
+.novelFlag{
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.novelDescription{
+	word-wrap: break-word;
+}
+
 .novelAvatar:hover {
 	cursor:pointer;
+}
+
+.novelCard{
+	max-width: 450px;
 }

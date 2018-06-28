@@ -63,8 +63,10 @@ export class EditnovelComponent implements OnInit {
       scenes: new FormControl(''),
       createDateTime: new FormControl(''),
       updateDateTime: new FormControl(''),
-      name: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(15)]),
+      name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(25)]),
       description: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      language: new FormControl('', [Validators.required]),
+      agerange: new FormControl('', [Validators.required]),
       image: new FormControl('', [Validators.required])
     });
   }
@@ -109,6 +111,8 @@ export class EditnovelComponent implements OnInit {
         id: this.novelForm.controls['id'].value,
         name: this.novelForm.controls['name'].value,
         description: this.novelForm.controls['description'].value,
+        language: this.novelForm.controls['language'].value,
+        agerange: this.novelForm.controls['agerange'].value,
         image: this.novelForm.get('image').value,
         scenes: this.novelForm.controls['scenes'].value,
         createDateTime: null,
@@ -179,5 +183,7 @@ export class EditnovelComponent implements OnInit {
 
   get name(): any { return this.novelForm.get('name'); }
   get description(): any { return this.novelForm.get('description'); }
+  get language(): any { return this.novelForm.get('language'); }
+  get agerange(): any { return this.novelForm.get('agerange'); }
 
 }

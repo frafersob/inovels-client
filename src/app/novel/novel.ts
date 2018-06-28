@@ -5,6 +5,8 @@ export class Novel {
         user: User;
         name: string;
         description: string;
+        language: string;
+        agerange: string;
         scenes: any[];
         image: Image;
         createDateTime: Date;
