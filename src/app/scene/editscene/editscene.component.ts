@@ -47,7 +47,6 @@ export class EditsceneComponent implements OnInit {
         this.sceneService.getScenes(novelid)
           .subscribe(scenes => {this.page = scenes[pageid - 1];
                                 this.pageForm.setValue(scenes[pageid - 1])});
-        console.log(this.novel);
       } else {
         this.router.navigate(['']);
       }

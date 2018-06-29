@@ -22,10 +22,30 @@
 	margin-right: auto;
 }
 
+img{
+	max-width: 100%;
+	height: auto;
+	display: block;
+    margin: 0 auto;
+}
+
+:host ::ng-deep .sceneText > p > img{
+	max-width: 100%;
+	height: auto;
+	display: block;
+    margin: 0 auto;
+}
+
+:host ::ng-deep .sceneText > img{
+	max-width: 100%;
+	height: auto;
+	display: block;
+    margin: 0 auto;
+}
+
 .sceneText{
-	text-align: center;
 	word-wrap: wrap;
-    max-width: 800px;
+	max-width: 800px;
 }
 
 .answerForm[hidden]{

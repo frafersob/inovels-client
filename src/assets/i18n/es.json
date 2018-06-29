@@ -14,7 +14,8 @@
    	"novel": {
    		"page": "página",
    		"pages": "páginas",
-   		"read": "Leer"
+   		"read": "Leer",
+      "yearsold": "años"
   	},	
  	"scene": {
   		"previouspage": "PÁGINA ANTERIOR",
@@ -43,6 +44,8 @@
 	"createnovel": {
 		"nameofnovel": "Nombre de Novela",
 		"description": "Descripción",
+    "language": "Idioma",
+    "agerange": "Rango de edades",
 		"create": "Crear",
 		"creating": "Creando"
 	},

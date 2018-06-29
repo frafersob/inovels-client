@@ -20,7 +20,7 @@
 					<h2>{{user.username}}</h2> 
 					</td>
 					</tr>
-				<tr><td>{{ 'user.accountcreated' | translate }}: {{user.createDateTime | timeago:live}}</td></tr>
+				<tr><td>{{ 'user.accountcreated' | translate }}: {{user.createDateTime | date: 'dd/MM/yyyy'}}</td></tr>
 				<tr>
 				<td>
 				<img class = "userAvatar" mat-card-image [src]="'data:' + user.avatar.extension + ';base64,' +  
