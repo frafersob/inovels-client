@@ -25,7 +25,6 @@ export class NavigatorComponent {
       this.userService.getUserByName(this.token.getDecodedToken().sub)
         .subscribe((user: User) => {
           this.currentUser = user;
-          console.log(user);
       });
     }
   }

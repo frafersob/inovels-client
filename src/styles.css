@@ -5,8 +5,9 @@
 
 body{
 	margin: auto;
+	background-color: #f0f3f5 !important;
 }
 
 .flag-icon-es-override {
-  background-image: url(~flag-icon-css/flags/4x3/esoverride.svg);
+  background-image: url(/assets/esoverride.svg);
 }

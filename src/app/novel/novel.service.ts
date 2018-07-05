@@ -25,8 +25,6 @@ export class NovelService {
   }
 
   public createNovel(novel: Novel) {
-    console.log('creating novel');
-    console.log(novel);
         return this.http.post('http://localhost:8080/api/novels/', novel);
   }
 

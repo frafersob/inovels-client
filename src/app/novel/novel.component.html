@@ -2,7 +2,7 @@
 	<mat-grid-list cols="1" rowHeight="500px">
 	<mat-grid-tile *ngFor="let novel of novels">
 		<mat-card class="novelCard">
-			<mat-card-header>
+			<mat-card-header class="novelHeader">
 			<div class="novelAvatar" (click)="viewUser(novel.user.id)" mat-card-avatar 
 			[style.background]="'url(data:' + novel.user.avatar.extension + ';base64,' +  
 			novel.user.avatar.src + ')'"
@@ -30,7 +30,7 @@
 			<mat-card-content>
 			<p class = "novelDescription">{{novel.description}}</p>
 			</mat-card-content>
-			<mat-card-actions>
+			<mat-card-actions class="novelActions">
 	    		<button *ngIf="novel.scenes.length > 0" mat-button (click)="readNovel(novel.id)">{{ 'novel.read' | translate }}</button>
 	    		<span class = "novelButtons" *ngIf="currentUser && (novel.user.id === currentUser.id)">
 	    		<button mat-button (click)="editNovel(novel.id)"><mat-icon>edit</mat-icon></button>
@@ -40,3 +40,4 @@
 	</mat-grid-tile>
 	</mat-grid-list>
 </div>
+<app-footer></app-footer>

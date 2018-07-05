@@ -7,7 +7,6 @@ import { MaterialModule } from './core/material.module';
 import * as moment from 'moment';
 import { AppComponent } from './app.component';
 import { Interceptor } from './core/app.interceptor';
-import { AuthGuard } from './core/auth.guard';
 import { AuthService } from './core/auth.service';
 import { LoginComponent } from './login/login.component';
 import { NovelComponent } from './novel/novel.component';
@@ -28,7 +27,6 @@ import { SceneService } from './scene/scene.service';
 import { CreatenovelComponent } from './novel/createnovel/createnovel.component';
 import { EditnovelComponent } from './novel/editnovel/editnovel.component';
 import { SignupComponent } from './user/signup/signup.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './core/app.routing.module';
 import { FileInputAccessorModule } from 'file-input-accessor';
 import { EdituserComponent } from './user/edituser/edituser.component';
@@ -36,6 +34,7 @@ import { EditsceneComponent } from './scene/editscene/editscene.component';
 import { HttpClient } from '@angular/common/http';
 import { TimeagoModule, TimeagoIntl } from 'ngx-timeago';
 import { NgxTrumbowygModule } from 'ngx-trumbowyg';
+import { NavigatorFooterComponent } from './navigator/navigator-footer/navigator-footer.component';
 
 export class MyIntl extends TimeagoIntl {
 }
@@ -54,6 +53,7 @@ export class MyIntl extends TimeagoIntl {
     ErrorDialogComponent,
     EdituserComponent,
     EditsceneComponent,
+    NavigatorFooterComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,7 +62,6 @@ export class MyIntl extends TimeagoIntl {
     BrowserAnimationsModule,
     LayoutModule,
     FlexLayoutModule,
-    ReactiveFormsModule,
     MaterialModule,
     AppRoutingModule,
     FileInputAccessorModule,

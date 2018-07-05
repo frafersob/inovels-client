@@ -9,7 +9,9 @@
         "english": "Inglés",
         "spanish": "Español",
         "french": "Francés",
-        "german": "Alemán"
+        "german": "Alemán",
+        "greek": "Griego",
+        "russian": "Ruso"
    	},
    	"novel": {
    		"page": "página",
@@ -47,7 +49,7 @@
     "language": "Idioma",
     "agerange": "Rango de edades",
 		"create": "Crear",
-		"creating": "Creando"
+		"creating": "Creando novela"
 	},
 	"login": {
     "username": "Nombre de Usuario",

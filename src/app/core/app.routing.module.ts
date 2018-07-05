@@ -12,7 +12,6 @@ import { SignupComponent } from '../user/signup/signup.component';
 import { UserComponent } from '../user/user.component';
 import { UserService } from '../user/user.service';
 import { Interceptor } from './app.interceptor';
-import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { TokenStorage } from './token.storage';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -27,7 +26,6 @@ const routes: Routes = [
   { path: 'viewuser', component: EdituserComponent, runGuardsAndResolvers: 'always' },
   { path: 'edituser', component: EdituserComponent, runGuardsAndResolvers: 'always' },
   { path: 'novel', component: SceneComponent },
-  { path: 'user', component: UserComponent },
   { path: 'login', component: LoginComponent },
   {path : '', component : NovelComponent}
 ];

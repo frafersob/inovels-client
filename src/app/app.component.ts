@@ -6,6 +6,7 @@ import {strings as englishStrings} from 'ngx-timeago/language-strings/en';
 import {strings as spanishStrings} from 'ngx-timeago/language-strings/es';
 import {strings as germanStrings} from 'ngx-timeago/language-strings/de';
 import {strings as frenchStrings} from 'ngx-timeago/language-strings/fr';
+import {strings as russianStrings} from 'ngx-timeago/language-strings/ru';
 
 @Component({
   selector: 'app-inovels',
@@ -22,7 +23,6 @@ export class AppComponent {
         translate.setDefaultLang(token.getLanguage());
         switch (token.getLanguage()) {
            case 'en': {
-              // statements;
               intl.strings = englishStrings;
               intl.changes.next();
               this.language = 'en_US';
@@ -44,6 +44,18 @@ export class AppComponent {
               intl.strings = germanStrings;
               intl.changes.next();
               this.language = 'de_DE';
+              break;
+           }
+           case 'gr': {
+              intl.strings = englishStrings;
+              intl.changes.next();
+              this.language = 'gr_GR';
+              break;
+           }
+           case 'ru': {
+              intl.strings = russianStrings;
+              intl.changes.next();
+              this.language = 'ru_RU';
               break;
            }
            default: {

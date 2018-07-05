@@ -54,7 +54,6 @@ export class EdituserComponent implements OnInit {
                   .subscribe((progress: any) => {
                     this.currentProgress = progress;
                     this.currentNovels = Object.keys(progress);
-                    console.log("branch 1 " + Object.keys(progress));
                     this.novelService.getNovelsByProgress(this.currentNovels)
                       .subscribe((novels) => {
                           this.novels = novels;
@@ -72,7 +71,6 @@ export class EdituserComponent implements OnInit {
                   .subscribe((progress: any) => {
                     this.currentProgress = progress;
                     this.currentNovels = Object.keys(progress);
-                    console.log("branch 2 " + Object.keys(progress));
                     this.novelService.getNovelsByProgress(this.currentNovels)
                       .subscribe((novels) => {
                           this.novels = novels;
@@ -93,7 +91,6 @@ export class EdituserComponent implements OnInit {
       const image = event.target.files[0];
       var imagerender = new Image();
       reader.readAsDataURL(image);
-      console.log(image);
 
       reader.onload = () => {
         imagerender.src = reader.result;

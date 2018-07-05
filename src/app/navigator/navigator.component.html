@@ -6,7 +6,7 @@
     [attr.role]="(isHandset | async)? 'dialog' : 'navigation'"
     [mode]="(isHandset | async)!.matches ? 'over' : 'side'"
     [opened]="!(isHandset | async)!.matches">
-    <mat-toolbar color="primary">Menu</mat-toolbar>
+    <mat-toolbar class="navBg">Menu</mat-toolbar>
     <mat-nav-list>
       <a mat-list-item *ngIf="this.token.getToken() && !this.token.getTokenExpired() && this.currentUser" routerLink="/edituser"><span mat-card-avatar 
 			[style.background]="'url(data:' + this.currentUser.avatar.extension + ';base64,' +  
@@ -20,8 +20,9 @@
       <mat-menu #menu="matMenu">
 	    <button mat-menu-item (click)="useLanguage('en')"><span class="flag-icon flag-icon-gb"></span> {{ 'nav.english' | translate }}</button>
 	    <button mat-menu-item (click)="useLanguage('es')"><span class="flag-icon flag-icon-es-override"></span> {{ 'nav.spanish' | translate }}</button>
-	    <button mat-menu-item (click)="useLanguage('fr')"><span class="flag-icon flag-icon-fr"></span> {{ 'nav.french' | translate }}</button>
 	    <button mat-menu-item (click)="useLanguage('de')"><span class="flag-icon flag-icon-de"></span> {{ 'nav.german' | translate }}</button>
+	    <button mat-menu-item (click)="useLanguage('gr')"><span class="flag-icon flag-icon-gr"></span> {{ 'nav.greek' | translate }}</button>
+	    <button mat-menu-item (click)="useLanguage('ru')"><span class="flag-icon flag-icon-ru"></span> {{ 'nav.russian' | translate }}</button>
 	  </mat-menu>
 	  </mat-list-item>
       <a mat-list-item *ngIf="!this.token.getToken()" routerLink="/">{{ 'nav.login' | translate }}</a>
@@ -30,7 +31,7 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar color="primary">
+    <mat-toolbar class="navBg">
       <button
         type="button"
         aria-label="Toggle sidenav"
@@ -39,7 +40,7 @@
         *ngIf="(isHandset | async)!.matches">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>Interactive Novels</span>
+      <span><img class="navImg" src="/assets/Logo-STIMEY.png"></span>
     </mat-toolbar>
   </mat-sidenav-content>
 </mat-sidenav-container>
