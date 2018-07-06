@@ -20,8 +20,8 @@
       "yearsold": "años"
   	},	
  	"scene": {
-  		"previouspage": "PÁGINA ANTERIOR",
-  		"nextpage": "SIGUIENTE PÁGINA"
+  		"previouspage": "ANTERIOR",
+  		"nextpage": "SIGUIENTE"
   	},
   	"user": {
   		"profile": "Perfil",
