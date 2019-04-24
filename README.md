@@ -1,1 +1,1 @@
-Frontend Angular 4 de Interactive Novels
+Angular 4 Frontend for Interactive Novels Website.
